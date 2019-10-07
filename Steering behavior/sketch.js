@@ -15,7 +15,7 @@ function draw() {
     v.show();
 }
 
-function mouseClicked() {
-    f == 1 ? f = 2 : f = 1;
-    v.target = createVector(mouseX, mouseY);
-}
+// function mouseClicked() {
+//     f == 1 ? f = 2 : f = 1;
+//     v.target = createVector(mouseX, mouseY);
+// }
