@@ -6,6 +6,7 @@
 * Insertion sort(C++, C, Java, JavaScript)
 * Merge sort(C++, C, Java, JavaScript)
 * Quadtree
+* Steering behavior
 
 
 ## Completed
