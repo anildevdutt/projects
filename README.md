@@ -1,11 +1,10 @@
 # Projects
 
 ## Planned
-* Mosaic Image
-* Bubble Sort(C++, C, Java, JavaScript)
-* Sekection Sort(C++, C, Java, JavaScript)
-* Insertion Sort(C++, C, Java, JavaScript)
-* Merge Sort(C++, C, Java, JavaScript)
+* Mosaic image
+* Sekection sort(C++, C, Java, JavaScript)
+* Insertion sort(C++, C, Java, JavaScript)
+* Merge sort(C++, C, Java, JavaScript)
 * Quadtree
 
 
@@ -20,3 +19,4 @@
 * Perlin noise flow field
 * Snake game
 * Perlin noise terrain
+* Bubble sort
