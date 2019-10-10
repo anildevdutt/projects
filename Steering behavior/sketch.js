@@ -1,21 +1,22 @@
-
-let v;
-let f = 1;
+let vehicles = [];
+//let f = 1;
 
 function setup() {
     createCanvas(800, 600);
-    v = new Vehicle();
+    vehicles.push(new Vehicle("red"));
+    for(let i = 1; i < 2; i++) {        
+        vehicles.push(new Vehicle("white"));
+    }
 }
 
 
-function draw() {
-    background(0);   
-    //f == 1 ? v.seek() : v.flee();
-    v.wander();
-    v.show();
+function draw() {    
+    background(0);       
+    vehicles[0].evade(vehicles[1]);    
+    vehicles[1].persuit(vehicles[0]);
+    
+    for(let i = 0; i < vehicles.length; i++) {        
+        vehicles[i].show();
+    }
+    
 }
-
-// function mouseClicked() {
-//     f == 1 ? f = 2 : f = 1;
-//     v.target = createVector(mouseX, mouseY);
-// }

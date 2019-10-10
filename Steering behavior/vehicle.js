@@ -1,12 +1,14 @@
 class Vehicle {
-    constructor() {
+    constructor(color) {
         this.position = createVector(random(width), random(height));
         this.velocity = p5.Vector.random2D();
         this.target = p5.Vector.random2D();
         this.maxSpeed = 2;
-        this.maxForce = 0.5;
-        this.n = 0;
+        this.maxForce = 0.5; 
+        this.circleRadious = 20;
+        this.circleDistance = 80;
         this.wanderAngle = 0;
+        this.color = color;
     }
 
     seek() {        
@@ -38,31 +40,65 @@ class Vehicle {
     }
 
     wander() {
-        // let wcircle = this.velocity.copy();
-        // wcircle.normalize();
-        // wcircle.mult(this.cRadious);
-        // let disp = p5.Vector.fromAngle(this.wanderAngle, 1);
-        // disp.mult(this.cRadious);
-        // this.wanderAngle += random(-0.5, 0.5);
-        // let wander = wcircle.add(disp);
+        let wcircle = this.velocity.copy();
+        wcircle.normalize();
+        wcircle.mult(this.circleDistance);
 
-        let desiredVelocity = p5.Vector.sub(this.target, this.position);
+        let disp = p5.Vector.fromAngle(this.wanderAngle, -1);
+        disp.mult(this.circleRadious);
+        this.wanderAngle += random(-0.2, 0.2);
+        let wander = p5.Vector.add(wcircle, disp);        
+            
+        let steering = wander;
+        steering.limit(this.maxForce);
+        this.velocity.add(steering);
+        
+        this.velocity.limit(this.maxSpeed);
+        this.position = this.position.add(this.velocity);              
+        this.boundries();  
+    }
+
+    evade(target) {
+        let t = p5.Vector.sub(target.position, this.position).mag() / this.maxSpeed;
+        //t = 5;
+        let futurePosition = p5.Vector.add(target.position, p5.Vector.mult(target.velocity, t));
+        let desiredVelocity = p5.Vector.sub(this.position, futurePosition);
+        let steering = p5.Vector.sub(desiredVelocity, this.velocity);
+        steering.limit(this.maxForce);
+        this.velocity.add(steering);
+        this.velocity.limit(this.maxSpeed);
+        this.position = this.position.add(this.velocity);        
+        this.boundries();
+    }
+
+    persuit(target) {
+        let t = p5.Vector.sub(target.position, this.position).mag() / this.maxSpeed;
+        //t = 5;
+        let futurePosition = p5.Vector.add(target.position, p5.Vector.mult(target.velocity, t));
+
+        let desiredVelocity = p5.Vector.sub(futurePosition, this.position);
         let dist = desiredVelocity.mag();
-        this.wanderAngle += map(noise(this.n), 0, 1, - PI / 60, PI / 60);
-        let steering = p5.Vector.fromAngle(this.wanderAngle, 1);
-        this.n += this.maxSpeed * 0.02;
+        let steering = p5.Vector.sub(desiredVelocity, this.velocity);
         steering.limit(this.maxForce);
         this.velocity.add(steering);
         let speed;
         dist <= this.slowRadious ? speed = map(dist, 0, this.slowRadious, 0, this.maxSpeed) : speed = this.velocity.limit(this.maxSpeed);
-        this.velocity.limit(speed);
-        this.position = this.position.add(this.velocity);      
-        this.boundries();  
+        this.velocity.limit(this.maxSpeed);
+        this.position = this.position.add(this.velocity);
+        this.boundries();
     }
 
     show() {
-        stroke(255);
+        stroke(this.color);
+        fill(this.color);
         strokeWeight(2);        
-        ellipse(this.position.x, this.position.y, 5, 5);
+        //console.log(degrees(this.heading));
+        let angle = this.velocity.heading() + PI / 2;
+        push();
+        stroke(this.color);        
+        translate(this.position.x, this.position.y);
+        rotate(angle);
+        triangle(0, -10, -6, 10, 6, 10);        
+        pop();
     }
 }
