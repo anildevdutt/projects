@@ -1,4 +1,4 @@
-const target = "Unicors and rainbows";
+const target = "No. Try not. Do.. or do not. There is no try.";
 let population;
 let bm, genc;
 let gcount = 0;
@@ -17,9 +17,10 @@ function setup() {
 function draw() {    
     population.check();
     population.fitness();    
+	
 
     bm.elt.innerText = "Best Match: " + population.bestmatch();
-    genc.elt.innerText = "Generation: " + gcount;
+    genc.elt.innerText = "Generation: " + gcount;    
     gcount += 1;
 
     population.reproduce();    
