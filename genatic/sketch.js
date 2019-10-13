@@ -1,4 +1,4 @@
-const target = "No. Try not. Do.. or do not. There is no try.";
+const target = "unicords and rainbows";
 let population;
 let bm, genc;
 let gcount = 0;

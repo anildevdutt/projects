@@ -1,6 +1,6 @@
 class Pipe {
     constructor() {                
-        this.gap = 100;
+        this.gap = 200;
         this.p1y = 0;
         this.p1x = width + 70;
         this.p1h = 100 + floor(random(height - 200 - this.gap));
